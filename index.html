@@ -2,445 +2,621 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TICP | Trabalho Inovação Conteúdo Próprio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+    <title>TICP | Trabalho Inovação Conteúdo Próprio</title>
 
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background: #101426;
-    color: white;
-}
-
-/* MENU */
-header {
-    width: 100%;
-    padding: 22px 8%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #151c35;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    border-bottom: 1px solid #293452;
-}
-
-.logo {
-    font-size: 27px;
-    font-weight: bold;
-    color: #a78bfa;
-    letter-spacing: 2px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    margin-left: 25px;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-nav a:hover {
-    color: #a78bfa;
-}
-
-/* APRESENTAÇÃO */
-.hero {
-    min-height: 570px;
-    padding: 100px 8%;
-    display: flex;
-    align-items: center;
-    background:
-    linear-gradient(90deg, #101426 35%, rgba(16,20,38,.65)),
-    url("https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1600")
-    center/cover;
-}
-
-.hero-content {
-    max-width: 650px;
-}
-
-.hero h1 {
-    font-size: clamp(38px, 5vw, 58px);
-    margin-bottom: 20px;
-    line-height: 1.15;
-}
-
-.hero h1 span {
-    color: #a78bfa;
-}
-
-.hero p {
-    color: #d1d5db;
-    font-size: 18px;
-    line-height: 1.7;
-    margin-bottom: 30px;
-}
-
-.buttons {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.btn {
-    padding: 15px 25px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.primary {
-    background: #7c3aed;
-    color: white;
-}
-
-.secondary {
-    border: 1px solid #a78bfa;
-    color: white;
-}
-
-.btn:hover {
-    transform: translateY(-3px);
-    opacity: .85;
-}
-
-/* SEÇÕES */
-section {
-    padding: 80px 8%;
-}
-
-.section-title {
-    text-align: center;
-    font-size: 34px;
-    margin-bottom: 18px;
-}
-
-.section-description {
-    text-align: center;
-    color: #b8c0d4;
-    max-width: 700px;
-    margin: 0 auto 45px;
-    line-height: 1.7;
-}
-
-/* CARDS */
-.cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-}
-
-.card {
-    background: #1a2340;
-    padding: 30px;
-    border-radius: 14px;
-    border: 1px solid #303c60;
-    transition: .3s;
-}
-
-.card:hover {
-    transform: translateY(-7px);
-    border-color: #a78bfa;
-}
-
-.card .icon {
-    font-size: 38px;
-    margin-bottom: 20px;
-}
-
-.card h3 {
-    margin-bottom: 15px;
-    color: #c4b5fd;
-}
-
-.card p {
-    color: #cbd5e1;
-    line-height: 1.7;
-}
-
-/* FILOSOFIA */
-.philosophy {
-    background: #171e36;
-    text-align: center;
-}
-
-.philosophy h2 {
-    font-size: 34px;
-    margin-bottom: 25px;
-}
-
-.philosophy p {
-    max-width: 850px;
-    margin: auto;
-    color: #d1d5db;
-    line-height: 1.9;
-    font-size: 17px;
-}
-
-/* OPORTUNIDADES */
-.opportunities {
-    text-align: center;
-}
-
-.opportunities h2 {
-    font-size: 34px;
-    margin-bottom: 20px;
-}
-
-.opportunities p {
-    color: #cbd5e1;
-    max-width: 750px;
-    margin: 0 auto 30px;
-    line-height: 1.8;
-}
-
-/* RODAPÉ */
-footer {
-    background: #090e1c;
-    padding: 40px 8%;
-    text-align: center;
-    border-top: 1px solid #293452;
-}
-
-footer h2 {
-    color: #a78bfa;
-    margin-bottom: 12px;
-}
-
-footer p {
-    color: #9ca3af;
-    margin-top: 12px;
-}
-
-footer a {
-    color: #c4b5fd;
-    text-decoration: none;
-    margin: 10px;
-}
-
-/* RESPONSIVIDADE */
-@media (max-width: 800px) {
-    header {
-        flex-direction: column;
-        gap: 18px;
-    }
-
-    nav {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
-
-    nav a {
-        margin: 0;
-    }
-
-    .hero {
-        padding: 80px 7%;
-    }
-
-    .cards {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<header>
-    <div class="logo">TICP.</div>
+    <!-- CABEÇALHO -->
+    <header class="cabecalho">
 
-    <nav>
-        <a href="#inicio">Início</a>
-        <a href="#projeto">O Projeto</a>
-        <a href="#criacao">Criações</a>
-        <a href="#servicos">Serviços</a>
-        <a href="#oportunidades">Oportunidades</a>
-    </nav>
-</header>
-
-<!-- APRESENTAÇÃO PRINCIPAL -->
-<div class="hero" id="inicio">
-    <div class="hero-content">
-        <h1>
-            Sua criatividade.<br>
-            Seu projeto.<br>
-            <span>Seu futuro.</span>
-        </h1>
-
-        <p>
-            Desenvolva suas próprias artes, animações,
-            histórias e personagens. Construa seu público,
-            divulgue suas ideias e crie oportunidades
-            profissionais sem depender exclusivamente
-            das grandes indústrias de entretenimento.
-        </p>
-
-        <div class="buttons">
-            <a href="#projeto" class="btn primary">
-                Conheça o projeto
-            </a>
-
-            <a href="#criacao" class="btn secondary">
-                Explore as criações
-            </a>
+        <div class="logo">
+            <span>TICP</span>
+            <small>Trabalho Inovação Conteúdo Próprio</small>
         </div>
+
+        <nav class="menu">
+            <a href="#inicio">Início</a>
+            <a href="#sobre">Sobre o projeto</a>
+            <a href="#objetivos">Objetivos</a>
+        </nav>
+
+        <button class="botao-login" onclick="abrirLogin()">
+            Login
+        </button>
+
+    </header>
+
+
+    <!-- APRESENTAÇÃO PRINCIPAL -->
+    <main>
+
+        <section class="inicio" id="inicio">
+
+            <div class="conteudo-inicio">
+
+                <span class="etiqueta">
+                    CRIATIVIDADE • INDEPENDÊNCIA • OPORTUNIDADE
+                </span>
+
+                <h1>
+                    Suas ideias.<br>
+                    Suas criações.<br>
+                    <span>Seu próprio caminho.</span>
+                </h1>
+
+                <p>
+                    O TICP é um projeto voltado para criadores independentes
+                    que desejam desenvolver, divulgar e trabalhar com suas
+                    próprias artes, animações, histórias e personagens,
+                    sem depender exclusivamente de uma indústria de entretenimento.
+                </p>
+
+                <div class="botoes-inicio">
+
+                    <a href="#sobre" class="botao-principal">
+                        Conheça o projeto
+                    </a>
+
+                    <a href="#objetivos" class="botao-secundario">
+                        Nossos objetivos
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="imagem-inicio">
+
+                <div class="cartao-criativo">
+                    <div class="icone-criativo">✦</div>
+
+                    <h2>Crie sem limites.</h2>
+
+                    <p>
+                        Transforme sua imaginação em projetos,
+                        oportunidades e realizações.
+                    </p>
+
+                    <div class="elementos-visuais">
+                        <span>🎨</span>
+                        <span>🎬</span>
+                        <span>📖</span>
+                        <span>💡</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SOBRE O PROJETO -->
+        <section class="sobre" id="sobre">
+
+            <div class="titulo-secao">
+                <span>CONHEÇA O TICP</span>
+
+                <h2>O que é o Trabalho Inovação Conteúdo Próprio?</h2>
+            </div>
+
+            <p class="texto-sobre">
+                O TICP busca incentivar pessoas a desenvolverem suas próprias
+                produções criativas e construírem uma trajetória profissional
+                independente.
+
+                <br><br>
+
+                A proposta é permitir que artistas, ilustradores, animadores,
+                escritores e outros criadores produzam seus conteúdos,
+                compartilhem seus trabalhos nas redes sociais e apresentem
+                seus serviços para possíveis clientes e empresas.
+
+                <br><br>
+
+                Dessa maneira, o criador pode desenvolver seus próprios
+                projetos e, ao mesmo tempo, conquistar oportunidades
+                profissionais sem abandonar sua independência criativa.
+            </p>
+
+        </section>
+
+
+        <!-- OBJETIVOS -->
+        
+<!-- ÁREA DAS QUATRO PASTAS -->
+
+<section class="objetivos" id="objetivos">
+
+    <div class="titulo-secao">
+        <span>ÁREA DE TRABALHO DO TICP</span>
+        <h2>Escolha uma das quatro pastas</h2>
+        <p>Organize suas criações, divulgue seus projetos e
+        acompanhe suas oportunidades profissionais.</p>
     </div>
-</div>
 
-<!-- SOBRE -->
-<section id="projeto">
-    <h2 class="section-title">O que é o TICP?</h2>
+    <div class="grade-objetivos">
 
-    <p class="section-description">
-        O Trabalho Inovação Conteúdo Próprio é um projeto
-        que incentiva a independência criativa e profissional,
-        valorizando ideias originais e a liberdade de criação.
-    </p>
+        <button class="card-objetivo"
+        onclick="abrirPasta('criar')">
 
-    <div class="cards">
+            <div class="icone">🎨</div>
 
-        <div class="card">
-            <div class="icon">🎨</div>
-            <h3>Criação independente</h3>
+            <h3>Criar Artes e Ilustrações</h3>
+
             <p>
-                Desenvolva suas próprias artes, ilustrações,
-                personagens, histórias, quadrinhos e animações.
+                Desenhe, pinte, crie personagens,
+                histórias e histórias em quadrinhos.
             </p>
-        </div>
 
-        <div class="card">
-            <div class="icon">📱</div>
-            <h3>Divulgação digital</h3>
-            <p>
-                Utilize YouTube, Instagram, Facebook, X e
-                outras redes para conquistar seu público.
-            </p>
-        </div>
+            <span class="abrir-pasta">Abrir pasta →</span>
 
-        <div class="card">
-            <div class="icon">💼</div>
-            <h3>Oportunidades profissionais</h3>
-            <p>
-                Apresente seus trabalhos e aceite projetos
-                de empresas quando as propostas forem
-                realmente interessantes.
-            </p>
-        </div>
+        </button>
 
-    </div>
-</section>
 
-<!-- CRIAÇÕES -->
-<section id="criacao" class="philosophy">
-    <h2>Crie suas próprias ideias</h2>
+        <button class="card-objetivo"
+        onclick="abrirPasta('animacoes')">
 
-    <p>
-        Não espere uma empresa oferecer uma oportunidade
-        para começar. Desenvolva seus personagens,
-        universos, animações e histórias. Publique seus
-        projetos, construa sua identidade artística e
-        permita que o público conheça seu trabalho.
-    </p>
-</section>
+            <div class="icone">🎬</div>
 
-<!-- SERVIÇOS -->
-<section id="servicos">
-    <h2 class="section-title">Transforme criatividade em trabalho</h2>
-
-    <p class="section-description">
-        Suas habilidades também podem gerar oportunidades
-        de colaboração com empresas e marcas.
-    </p>
-
-    <div class="cards">
-
-        <div class="card">
-            <div class="icon">🖌️</div>
-            <h3>Artes e ilustrações</h3>
-            <p>
-                Criação de ilustrações, desenhos,
-                artes digitais e materiais publicitários.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">🎬</div>
             <h3>Animações</h3>
-            <p>
-                Produção de animações, vídeos,
-                apresentações e conteúdos visuais.
-            </p>
-        </div>
 
-        <div class="card">
-            <div class="icon">✨</div>
-            <h3>Identidade visual</h3>
             <p>
-                Desenvolvimento de logotipos,
-                logomarcas e identidade de marcas.
+                Desenvolva suas animações,
+                organize quadros e crie seus projetos.
             </p>
-        </div>
+
+            <span class="abrir-pasta">Abrir pasta →</span>
+
+        </button>
+
+
+        <button class="card-objetivo"
+        onclick="abrirPasta('divulgar')">
+
+            <div class="icone">🌐</div>
+
+            <h3>Divulgar</h3>
+
+            <p>
+                Escolha suas redes sociais e
+                prepare suas publicações.
+            </p>
+
+            <span class="abrir-pasta">Abrir pasta →</span>
+
+        </button>
+
+
+        <button class="card-objetivo"
+        onclick="abrirPasta('notificacoes')">
+
+            <div class="icone">🛡️</div>
+
+            <h3>Notificações e Verificações</h3>
+
+            <p>
+                Receba propostas comerciais e
+                investigue empresas antes de aceitar.
+            </p>
+
+            <span class="abrir-pasta">Abrir pasta →</span>
+
+        </button>
 
     </div>
+
 </section>
 
-<!-- OPORTUNIDADES -->
-<section id="oportunidades" class="opportunities">
-    <h2>Nem toda oportunidade vale a pena.</h2>
 
-    <p>
-        Antes de aceitar uma proposta, investigue a empresa,
-        sua reputação, seu histórico, seu público-alvo,
-        suas condições de trabalho e os direitos envolvidos.
-        Uma oportunidade profissional deve respeitar
-        seu trabalho, seus valores e sua criatividade.
-    </p>
+<!-- ÁREAS INTERNAS DAS PASTAS -->
 
-    <a href="#projeto" class="btn primary">
-        Conheça nossa filosofia
-    </a>
-</section>
+<main id="area-interna" class="area-interna" hidden>
 
-<!-- RODAPÉ -->
-<footer>
-    <h2>TICP.</h2>
+    <div class="barra-interna">
 
-    <p>
-        Trabalho Inovação Conteúdo Próprio
-    </p>
+        <button class="botao-voltar" onclick="voltarPastas()">
+            ← Voltar às pastas
+        </button>
 
-    <p>
-        Criatividade independente. Oportunidades conscientes.
-    </p>
+        <span id="nome-pasta"></span>
 
-    <div style="margin-top: 20px;">
-        <a href="#">YouTube</a>
-        <a href="#">Instagram</a>
-        <a href="#">Facebook</a>
-        <a href="#">X</a>
     </div>
 
-    <p>
-        © 2026 TICP. Todos os direitos reservados.
-    </p>
-</footer>
+
+    <!-- PASTA 1: CRIAR ARTES -->
+
+    <section id="pasta-criar" class="conteudo-pasta" hidden>
+
+        <div class="titulo-secao">
+            <span>SEU ESPAÇO CRIATIVO</span>
+            <h2>Criar Artes e Ilustrações</h2>
+            <p>Desenvolva seus desenhos e criações originais.</p>
+        </div>
+
+        <div class="painel-criacao">
+
+            <div class="ferramentas">
+
+                <label>Cor do desenho</label>
+                <input type="color" id="cor-pincel" value="#000000">
+
+                <label>Espessura do pincel</label>
+                <input type="range" id="tamanho-pincel"
+                min="1" max="40" value="5">
+
+                <button onclick="definirFerramenta('pincel')">
+                    ✏️ Pincel
+                </button>
+
+                <button onclick="definirFerramenta('borracha')">
+                    🧽 Borracha
+                </button>
+
+                <button onclick="limparDesenho()">
+                    🗑️ Limpar desenho
+                </button>
+
+                <button onclick="salvarDesenho()">
+                    💾 Salvar criação
+                </button>
+
+            </div>
+
+            <div class="area-desenho">
+
+                <canvas id="tela-desenho"
+                width="900" height="550"></canvas>
+
+            </div>
+
+        </div>
+
+        <div class="arquivos-salvos">
+            <h3>Minhas criações</h3>
+            <div id="lista-artes"></div>
+        </div>
+
+    </section>
+
+
+    <!-- PASTA 2: ANIMAÇÕES -->
+
+    <section id="pasta-animacoes" class="conteudo-pasta" hidden>
+
+        <div class="titulo-secao">
+            <span>ESTÚDIO DE ANIMAÇÃO</span>
+            <h2>Animações</h2>
+            <p>Crie desenhos em sequência e visualize seus movimentos.</p>
+        </div>
+
+        <div class="painel-criacao">
+
+            <div class="ferramentas">
+
+                <label>Cor do pincel</label>
+                <input type="color" id="cor-animacao" value="#000000">
+
+                <label>Espessura</label>
+                <input type="range" id="tamanho-animacao"
+                min="1" max="30" value="5">
+
+                <button onclick="definirFerramentaAnimacao('pincel')">
+                    ✏️ Desenhar
+                </button>
+
+                <button onclick="definirFerramentaAnimacao('borracha')">
+                    🧽 Borracha
+                </button>
+
+                <button onclick="adicionarQuadro()">
+                    ➕ Adicionar quadro
+                </button>
+
+                <button onclick="limparQuadro()">
+                    🗑️ Limpar quadro
+                </button>
+
+                <button onclick="reproduzirAnimacao()">
+                    ▶️ Reproduzir
+                </button>
+
+                <button onclick="pararAnimacao()">
+                    ⏹️ Parar
+                </button>
+
+                <button onclick="salvarAnimacao()">
+                    💾 Salvar animação
+                </button>
+
+            </div>
+
+            <div class="area-desenho">
+
+                <canvas id="tela-animacao"
+                width="900" height="550"></canvas>
+
+            </div>
+
+        </div>
+
+        <div class="quadros-animacao">
+            <h3>Quadros da animação</h3>
+            <div id="lista-quadros"></div>
+        </div>
+
+        <div class="arquivos-salvos">
+            <h3>Minhas animações</h3>
+            <div id="lista-animacoes"></div>
+        </div>
+
+    </section>
+
+
+    <!-- PASTA 3: DIVULGAR -->
+
+    <section id="pasta-divulgar" class="conteudo-pasta" hidden>
+
+        <div class="titulo-secao">
+            <span>COMPARTILHE SEU TRABALHO</span>
+            <h2>Divulgar</h2>
+            <p>Escolha a rede social na qual deseja divulgar sua criação.</p>
+        </div>
+
+        <div class="grade-redes">
+
+            <button class="rede-card"
+onclick="selecionarRede('Instagram', this)">
+                <span>📸</span>
+                <h3>Instagram</h3>
+                <p>Divulgue artes, vídeos e animações.</p>
+            </button>
+
+            <button class="rede-card"
+onclick="selecionarRede('Facebook', this)">
+                <span>🔵</span>
+                <h3>Facebook</h3>
+                <p>Compartilhe suas criações com seu público.</p>
+            </button>
+
+            <button class="rede-card"
+onclick="selecionarRede('Youtube', this)">
+                <span>▶️</span>
+                <h3>YouTube</h3>
+                <p>Publique vídeos e animações.</p>
+            </button>
+
+            <button class="rede-card"
+onclick="selecionarRede('X', this)">
+                <span>𝕏</span>
+                <h3>X</h3>
+                <p>Compartilhe novidades e ilustrações.</p>
+            </button>
+
+        </div>
+
+        <div class="painel-publicacao">
+
+            <h3>Preparar publicação</h3>
+
+            <label>Rede social selecionada</label>
+            <input id="rede-selecionada" readonly
+            placeholder="Escolha uma rede social acima">
+
+            <label>Descrição da publicação</label>
+            <textarea id="descricao-publicacao"
+            placeholder="Escreva sobre seu projeto..."></textarea>
+
+            <label>Escolher arquivo</label>
+            <input type="file" id="arquivo-publicacao"
+            accept="image/*,video/*">
+
+            <button class="botao-principal"
+            onclick="prepararPublicacao()">
+                Preparar divulgação
+            </button>
+
+            <p id="mensagem-publicacao"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- PASTA 4: NOTIFICAÇÕES E VERIFICAÇÕES -->
+
+    <section id="pasta-notificacoes" class="conteudo-pasta" hidden>
+
+        <div class="titulo-secao">
+            <span>OPORTUNIDADES PROFISSIONAIS</span>
+            <h2>Notificações e Verificações</h2>
+            <p>Analise as empresas e suas propostas antes de estabelecer parcerias.</p>
+        </div>
+
+        <div class="painel-propostas">
+
+            <h3>Propostas recebidas</h3>
+
+            <div id="lista-propostas">
+                <p class="aviso-vazio">
+                    Nenhuma proposta recebida até o momento.
+                </p>
+            </div>
+
+            <button class="botao-secundario"
+            onclick="mostrarFormularioProposta()">
+                + Registrar proposta recebida
+            </button>
+
+        </div>
+
+
+        <div id="formulario-proposta" hidden>
+
+            <h3>Registrar nova proposta</h3>
+
+            <label>Nome da empresa</label>
+            <input id="empresa-nome"
+            placeholder="Nome da empresa">
+
+            <label>Serviço solicitado</label>
+            <input id="empresa-servico"
+            placeholder="Ex.: criação de logomark">
+
+            <label>Valor oferecido</label>
+            <input id="empresa-valor"
+            placeholder="Ex.: R$ 500,00">
+
+            <label>Descrição da proposta</label>
+            <textarea id="empresa-descricao"
+            placeholder="Descreva o que a empresa deseja..."></textarea>
+
+            <label>Site da empresa</label>
+            <input id="empresa-site"
+            type="url" placeholder="https://...">
+
+            <button class="botao-principal"
+            onclick="registrarProposta()">
+                Registrar proposta
+            </button>
+
+        </div>
+
+
+        <div class="painel-verificacao">
+
+            <h3>Investigação da empresa</h3>
+
+            <p>
+                Antes de aceitar uma proposta, investigue os seguintes aspectos:
+            </p>
+
+            <div id="dados-verificacao">
+
+                <label>Empresa</label>
+                <input id="verifica-nome" readonly
+                placeholder="Selecione uma proposta">
+
+                <label>Site oficial</label>
+                <input id="verifica-site" readonly
+                placeholder="Site da empresa">
+
+                <label>Reputação e histórico</label>
+                <textarea id="verifica-reputacao"
+                placeholder="Registre informações encontradas sobre a empresa..."></textarea>
+
+                <label>Público-alvo</label>
+                <textarea id="verifica-publico"
+                placeholder="Quem são os consumidores dessa empresa?"></textarea>
+
+                <label>Compatibilidade com seus valores</label>
+                <textarea id="verifica-compatibilidade"
+                placeholder="Essa parceria combina com seu trabalho?"></textarea>
+
+                <label>Condições e direitos autorais</label>
+                <textarea id="verifica-direitos"
+                placeholder="Avalie pagamento, contrato e utilização da criação..."></textarea>
+
+                <button class="botao-principal"
+                onclick="salvarVerificacao()">
+                    Salvar avaliação
+                </button>
+
+                <div class="decisao-proposta">
+
+                    <h3>Decisão do criador</h3>
+
+                    <button onclick="decidirProposta('Aceitar')">
+                        Aceitar proposta
+                    </button>
+
+                    <button onclick="decidirProposta('Negociar')">
+                        Negociar condições
+                    </button>
+
+                    <button onclick="decidirProposta('Recusar')">
+                        Recusar proposta
+                    </button>
+
+                </div>
+
+                <p id="resultado-verificacao"></p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+            
+
+
+        <!-- INDEPENDÊNCIA CRIATIVA -->
+        <section class="independencia">
+
+            <div class="independencia-conteudo">
+
+                <span>UM PRINCÍPIO FUNDAMENTAL</span>
+
+                <h2>
+                    Nem toda oportunidade
+                    é uma boa oportunidade.
+                </h2>
+
+                <p>
+                    O criador não precisa aceitar todas as propostas que recebe.
+                    Antes de estabelecer uma parceria, é importante conhecer
+                    a empresa, investigar sua reputação, compreender seu público
+                    e avaliar se aquela colaboração realmente vale a pena.
+                </p>
+
+                <p>
+                    O objetivo é preservar a liberdade criativa, a identidade
+                    profissional e os interesses de cada criador.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- RODAPÉ -->
+        <footer class="rodape">
+
+            <h2>TICP</h2>
+
+            <p>
+                Sua criatividade merece espaço para crescer.
+            </p>
+
+            <small>
+                Trabalho Inovação Conteúdo Próprio © 2026
+            </small>
+
+        </footer>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
 
 </body>
 </html>
+
+
+<div id="area-interna" class="area-interna" hidden></div>
+
+</div>
+
