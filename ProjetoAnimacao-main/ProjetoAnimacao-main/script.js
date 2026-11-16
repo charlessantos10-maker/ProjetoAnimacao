@@ -1,31 +1,95 @@
-
 /* =========================================
-   BANCO DE DADOS LOCAL DO TICP
+   COMUNICAÇÃO COM O BACK END DO TICP
 ========================================= */
 
-const DB_NAME = "TICP_Projetos";
-const DB_VERSION = 1;
+const API_BASE_URL = "https://localhost:7266";
 
-let banco;
+const TOKEN_KEY = "ticp_jwt_token";
+const USER_KEY = "ticp_user";
 
-const requisicaoDB = indexedDB.open(DB_NAME, DB_VERSION);
+function obterToken() {
+    return sessionStorage.getItem(TOKEN_KEY);
+}
 
-requisicaoDB.onupgradeneeded = function(event) {
+function obterUsuarioLogado() {
+    const usuario = sessionStorage.getItem(USER_KEY);
+    return usuario ? JSON.parse(usuario) : null;
+}
 
-    banco = event.target.result;
+let modoCadastro = false;
 
-    ["artes", "animacoes", "propostas", "avaliacoes"].forEach(nome => {
+async function apiRequest(endpoint, options = {}) {
+    const token = obterToken();
 
-        if (!banco.objectStoreNames.contains(nome)) {
-            banco.createObjectStore(nome, {
-                keyPath: "id",
-                autoIncrement: true
-            });
-        }
+    const headers = {
+        ...(options.headers || {})
+    };
 
+    if (options.body && !(options.body instanceof FormData)) {
+        headers["Content-Type"] = "application/json";
+    }
+
+    if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    const resposta = await fetch(`${API_BASE_URL}${endpoint}`, {
+        ...options,
+        headers
     });
 
-};
+    const texto = await resposta.text();
+
+    let dados = null;
+
+    try {
+        dados = texto ? JSON.parse(texto) : null;
+    } catch {
+        dados = texto;
+    }
+
+    if (!resposta.ok) {
+        const mensagem =
+            typeof dados === "string"
+                ? dados
+                : dados?.message || dados?.title ||
+                  `Erro HTTP ${resposta.status}`;
+
+        throw new Error(mensagem);
+    }
+
+    return dados;
+}
+
+function salvarSessao(authResponse) {
+    sessionStorage.setItem(TOKEN_KEY, authResponse.token);
+    sessionStorage.setItem(
+        USER_KEY,
+        JSON.stringify(authResponse.user)
+    );
+}
+
+function encerrarSessao() {
+    sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.removeItem(USER_KEY);
+    atualizarBotaoLogin();
+}
+
+function atualizarBotaoLogin() {
+    const botao = document.querySelector(".botao-login");
+    const usuario = obterUsuarioLogado();
+
+    if (botao) {
+        botao.textContent = usuario
+            ? "Sair"
+            : "Login";
+
+        botao.onclick = usuario
+            ? encerrarSessao
+            : abrirLogin;
+    }
+}
+
 
 requisicaoDB.onsuccess = function(event) {
 
@@ -1003,13 +1067,148 @@ async function decidirProposta(decisao) {
 ========================================= */
 
 function abrirLogin() {
+    if (document.getElementById("modal-autenticacao")) {
+        return;
+    }
 
-    alert(
-        "Bem-vindo ao TICP!\n\n" +
-        "O sistema de login está em desenvolvimento."
+    const modal = document.createElement("div");
+    modal.id = "modal-autenticacao";
+
+    modal.innerHTML = `
+        <div class="modal-conteudo">
+            <button class="modal-fechar"
+                onclick="fecharLogin()">×</button>
+
+            <h2 id="titulo-autenticacao">Entrar no TICP</h2>
+
+            <form id="form-autenticacao">
+                <div id="campo-nome" hidden>
+                    <label>Nome completo</label>
+                    <input id="auth-nome" type="text"
+                        placeholder="Seu nome">
+                </div>
+
+                <label>E-mail</label>
+                <input id="auth-email" type="email"
+                    placeholder="Seu e-mail" required>
+
+                <label>Senha</label>
+                <input id="auth-senha" type="password"
+                    placeholder="Sua senha" minlength="8"
+                    required>
+
+                <button class="botao-principal" type="submit"
+                    id="botao-autenticacao">
+                    Entrar
+                </button>
+            </form>
+
+            <p id="mensagem-autenticacao"></p>
+
+            <button class="alternar-autenticacao"
+                id="alternar-autenticacao"
+                onclick="alternarAutenticacao()">
+                Não tem conta? Cadastre-se
+            </button>
+        </div>
+    `;
+
+    modal.style.cssText = `
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0,0,0,.65);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    `;
+
+    document.body.appendChild(modal);
+
+    document.getElementById("form-autenticacao")
+        .addEventListener("submit", autenticarUsuario);
+}
+
+function fecharLogin() {
+    document.getElementById("modal-autenticacao")?.remove();
+}
+
+
+
+function alternarAutenticacao() {
+    modoCadastro = !modoCadastro;
+
+    document.getElementById("campo-nome").hidden =
+        !modoCadastro;
+
+    document.getElementById("titulo-autenticacao")
+        .textContent = modoCadastro
+            ? "Criar conta no TICP"
+            : "Entrar no TICP";
+
+    document.getElementById("botao-autenticacao")
+        .textContent = modoCadastro
+            ? "Cadastrar"
+            : "Entrar";
+
+    document.getElementById("alternar-autenticacao")
+        .textContent = modoCadastro
+            ? "Já possui conta? Faça login"
+            : "Não tem conta? Cadastre-se";
+}
+
+async function autenticarUsuario(evento) {
+    evento.preventDefault();
+
+    const nome = document.getElementById("auth-nome").value.trim();
+    const email = document.getElementById("auth-email").value.trim();
+    const senha = document.getElementById("auth-senha").value;
+
+    const mensagem = document.getElementById(
+        "mensagem-autenticacao"
     );
 
+    const botao = document.getElementById(
+        "botao-autenticacao"
+    );
+
+    botao.disabled = true;
+    mensagem.textContent = "Conectando ao servidor...";
+
+    try {
+        const endpoint = modoCadastro
+            ? "/api/auth/register"
+            : "/api/auth/login";
+
+        const dados = modoCadastro
+            ? { name: nome, email, password: senha }
+            : { email, password: senha };
+
+        const resultado = await apiRequest(endpoint, {
+            method: "POST",
+            body: JSON.stringify(dados)
+        });
+
+        salvarSessao(resultado);
+        atualizarBotaoLogin();
+
+        fecharLogin();
+
+        alert(
+            modoCadastro
+                ? "Conta criada com sucesso!"
+                : "Login realizado com sucesso!"
+        );
+
+    } catch (erro) {
+        mensagem.textContent = erro.message;
+    } finally {
+        botao.disabled = false;
+    }
 }
+
+document.addEventListener("DOMContentLoaded", atualizarBotaoLogin);
 
 
 

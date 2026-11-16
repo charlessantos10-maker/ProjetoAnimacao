@@ -849,4 +849,70 @@ body {
 }
 
 
+/* ===== MODAL DE LOGIN E CADASTRO ===== */
+
+.modal-conteudo {
+    position: relative;
+    background: white;
+    width: 100%;
+    max-width: 430px;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 15px 45px rgba(0,0,0,.2);
+}
+
+.modal-conteudo h2 {
+    color: #5945c5;
+    margin-bottom: 25px;
+}
+
+.modal-conteudo label {
+    display: block;
+    margin: 15px 0 7px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.modal-conteudo input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 9px;
+    font-family: inherit;
+}
+
+.modal-conteudo form .botao-principal {
+    display: block;
+    width: 100%;
+    border: none;
+    margin-top: 22px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.modal-fechar {
+    position: absolute;
+    top: 12px;
+    right: 17px;
+    border: none;
+    background: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.alternar-autenticacao {
+    margin-top: 20px;
+    border: none;
+    background: none;
+    color: #5945c5;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#mensagem-autenticacao {
+    margin-top: 15px;
+    color: #c0392b;
+    font-size: 13px;
+}
+
 
